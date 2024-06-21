@@ -8,6 +8,8 @@ public class PlayerAnimation : MonoBehaviour
 
     bool isRun = true;
 
+    Vector3 change;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -20,17 +22,18 @@ public class PlayerAnimation : MonoBehaviour
 
     public void CreatAnimation()
     {
-        var horizontal = Input.GetAxisRaw("Horizontal");
-        var vertical = Input.GetAxisRaw("Vertical");
+         change.x = Input.GetAxisRaw("Horizontal");
+         change.y = Input.GetAxisRaw("Vertical");
 
-        if(horizontal != 0 || vertical != 0)
+        if (change != Vector3.zero)
+        {
+            anim.SetFloat("Horizontal", change.x);
+            anim.SetFloat("Vertical", change.y);
             isRun = true;
+        }
         else
             isRun = false;
-        anim.SetFloat("Horizontal", horizontal);
-        anim.SetFloat("Vertical", vertical);
+
         anim.SetBool("isRuning", isRun);
-
-
     }
 }
